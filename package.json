@@ -14,6 +14,7 @@
     "express": "~4.13.1",
     "morgan": "~1.6.1",
     "node-compass": "0.2.3",
+    "request": "2.69.0",
     "serve-favicon": "~2.3.0"
   },
   "description": "Sia songwriter app",
