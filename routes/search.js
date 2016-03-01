@@ -1,7 +1,7 @@
 var express = require('express')
 var router = express.Router()
-var xml = require('sia-app/parse-xml')
-var mb = require('sia-app/musicbrainz')
+var xml = require('../modules/parse-xml')
+var mb = require('../modules/musicbrainz')
 
 /* GET search results */
 router.get('/', function(req, res, next) {
