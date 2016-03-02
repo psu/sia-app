@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= writer.name %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+  
+    <h1><%= writer.name %></h1>
+    <% if (writer.disambiguation) { %>
+      <p><em><%= writer.disambiguation %></em></p>
+    <% } %>
+    <p>
+      <%= writer.type %>, 
+      <%= writer.country %><% if (writer.birth) { %>, 
+      <%= writer.birth %><% } %>
+    </p>
+
+    <h2>Relations</h2>
+    <ul>
+      <% writer.relations.forEach(function(r){ %>
+        <li><%= r.type %>: <a href="/writer/<%= r.id %>"><%= r.name %></a></li>
+      <% }); %>
+    </ul>
+
+  </body>
+</html>

@@ -7,25 +7,22 @@ var Writer = require('../modules/writer.prototype.js');
 router.get('/:id', function(req, res, next) {  
   var id = req.params.id
   var mb = require('../modules/musicbrainz')
-  mb.request( '/artist/'+ id +'', function(xmlError, xmlResponse, xmlBody) {
+  mb.request( '/artist/'+ id +'?inc=artist-rels+work-rels', function(xmlError, xmlResponse, xmlBody) {
     if (!xmlError && xmlResponse.statusCode == 200) {
-      var writer = new Writer( id, xmlBody )     
-      if (typeof writer.error === 'undefined') {
+      var w = new Writer( id, xmlBody )     
+      
+      if (req.query.output == 'raw') { res.send(w.data); return }
 
-        res.write('mbType: ' + writer.getType() +"\n")
-        res.write('mbName: ' + writer.getName() +"\n")
-        res.write('mbCountry: ' + writer.getCountry() +"\n")
-        res.write('mbBorn: ' + writer.getBirth() +"\n")
-        res.end()
-
-      } else {
-        res.send('Error creating writer object: ' + writer.error)
-      }
+      res.render('writer', { writer: w })
+      
     } else {
       res.send('Request error: ' + xmlResponse.statusCode + ' (' + xmlError + ')')
       console.log('Request error')
       console.log(xmlResponse.statusCode)
     } 
+
+
+
 
   }) //mb.request
 }) // router.get
