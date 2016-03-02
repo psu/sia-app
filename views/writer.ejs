@@ -7,21 +7,64 @@
   <body>
   
     <h1><%= writer.name %></h1>
-    <% if (writer.disambiguation) { %>
-      <p><em><%= writer.disambiguation %></em></p>
-    <% } %>
     <p>
-      <%= writer.type %>, 
-      <%= writer.country %><% if (writer.birth) { %>, 
-      <%= writer.birth %><% } %>
-    </p>
+    
+      <% if (writer.aka) { %>
+        <span class="person-aka">aka. <a href="/writer/<%= writer.aka.id %>"><%= writer.aka.name %></a></span>
+      <% } %>
+      <% if (writer.country) { %>From <%= writer.country %>.<% } %>
 
-    <h2>Relations</h2>
-    <ul>
-      <% writer.relations.forEach(function(r){ %>
-        <li><%= r.type %>: <a href="/writer/<%= r.id %>"><%= r.name %></a></li>
-      <% }); %>
-    </ul>
+      <% if (writer.birth) { %>
+        <% if (writer.type == 'person') { %>
+          Born in 
+        <% } else if (writer.type == 'group') { %>
+          Started in
+        <% } %>
+        <%= writer.birth %>.
+      <% } %>
+    </p>      
+    <% if (writer.disambiguation) { %><p><em><%= writer.disambiguation %></em></p><% } %>
+
+
+    <% if (writer.band) { %>
+      <h2>
+        <% if (writer.type == 'person') { %>
+          Member of…
+        <% } else if (writer.type == 'group') { %>
+          Members
+        <% } %>
+      </h2>
+      <ul>
+        <% writer.band.forEach(function(b){ %>
+          <li><a href="/writer/<%= b.id %>"><%= b.name %></a></li>
+        <% }) %>
+      </ul>
+    <% } %>
+
+    <% if (writer.songs) { %>
+      <h2>Songs</h2>
+      <ul>
+        <% writer.songs.forEach(function(s){ %>
+          <li>
+            <a href="/song/<%= s.id %>"><%= s.title %></a>
+             <% if (s.type) { %>
+               (<%= s.type %>)
+             <% } %>
+           </li>
+        <% }) %>
+      </ul>
+    <% } %>
+
+    <% if (writer.relations) { %>
+      <h2>More</h2>
+      <ul>
+        <% writer.relations.forEach(function(r){ %>
+          <li><%= r.type %>: <a href="/writer/<%= r.id %>"><%= r.name %></a></li>
+        <% }) %>
+      </ul>
+    <% } %>
+
+
 
   </body>
 </html>
