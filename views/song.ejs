@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= song.title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+  
+    <h1><%= song.title %></h1>
+    <div class="song-info">
+    </div>
+    
+    <h2>Writers</h2>
+    <ul>
+      <li><div class="collaboration"><h3>Songwriter x</h3></div></li>
+      <li><div class="collaboration"><h3>Artist x</h3></div></li>
+      <li><div class="collaboration"><h3>Band?</h3></div></li>
+      <li><div class="collaboration"><h3>Another one</h3></div></li>
+    </ul>
+    
+    <% if (song.artists) { %>
+      <h2>Artists</h2>
+      <ul>
+        <% song.artists.forEach(function(s){ %>
+          <li><h3><a href="/song/<%= s.id %>"><%= s.name %></a></h3></li>
+        <% }) %>
+      </ul>
+    <% } %>
+
+
+  </body>
+</html>
