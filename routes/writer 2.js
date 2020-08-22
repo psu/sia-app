@@ -1,21 +1,20 @@
-var Writer = function(id) {
-  this.id = id
+var express = require('express')
+var router = express.Router()
+var Writer = require('../modules/writer.prototype.js');
 
-  this.request(function() {
-    console.log('callback')  
-  })
+router.get('/', function(req, res, next) {
+  res.render('writer', { writer: {name: 'Testperson'} })
+})
 
-}
-
-Writer.prototype.request = function(callback) {
+/* GET writer info */
+router.get('/:id', function(req, res, next) {  
+  var id = req.params.id
   var mb = require('../modules/musicbrainz')
-  //request mb with id, 3 times
   
-  
-/*
   mb.request( '/artist/'+ id +'?inc=works+artist-rels+work-rels+recording-rels', function(xmlError, xmlResponse, xmlBody) {
     if (!xmlError && xmlResponse.statusCode == 200) {
 
+      var w = new Writer( id, xmlBody )     
       if (req.query.output == 'raw') { res.send(w.data); return }
       res.render('writer', { writer: w })
 
@@ -26,11 +25,6 @@ Writer.prototype.request = function(callback) {
     }
 
   }) //mb.request
+}) // router.get
 
-*/  
-  
-  
-  callback()
-}
-
-module.exports = Writer
+module.exports = router

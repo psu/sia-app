@@ -7,24 +7,49 @@
   <body>
   
     <h1><%= writer.name %></h1>
-    <p>
-    
-      <% if (writer.aka) { %>
-        <span class="person-aka">aka. <a href="/writer/<%= writer.aka.id %>"><%= writer.aka.name %></a></span>
-      <% } %>
-      <% if (writer.country) { %>From <%= writer.country %>.<% } %>
-
-      <% if (writer.birth) { %>
-        <% if (writer.type == 'person') { %>
-          Born in 
-        <% } else if (writer.type == 'group') { %>
-          Started in
+    <div class="writer-info">
+      <p>
+      
+        <% if (writer.aka) { %>
+          <span class="person-aka">aka. <a href="/writer/<%= writer.aka.id %>"><%= writer.aka.name %></a></span>
         <% } %>
-        <%= writer.birth %>.
-      <% } %>
-    </p>      
-    <% if (writer.disambiguation) { %><p><em><%= writer.disambiguation %></em></p><% } %>
+        <% if (writer.country) { %>From <%= writer.country %>.<% } %>
+  
+        <% if (writer.birth) { %>
+          <% if (writer.type == 'person') { %>
+            Born in 
+          <% } else if (writer.type == 'group') { %>
+            Started in
+          <% } %>
+          <%= writer.birth %>.
+        <% } %>
+      </p>      
+      <% if (writer.disambiguation) { %><p><em><%= writer.disambiguation %></em></p><% } %>
+    </div>
 
+    <h2>Collaborations</h2>
+    <ul>
+      <li><div class="collaboration"><h3>Songwriter x</h3></div></li>
+      <li><div class="collaboration"><h3>Artist x</h3></div></li>
+      <li><div class="collaboration"><h3>Band?</h3></div></li>
+      <li><div class="collaboration"><h3>Another one</h3></div></li>
+    </ul>
+    
+    <% if (writer.songs) { %>
+      <h2>Songs</h2>
+      <ul>
+        <% writer.songs.forEach(function(s){ %>
+          <li><h3>
+            <a href="/song/<%= s.id %>"><%= s.title %></a>
+             <% if (s.type) { %>
+               (<%= s.type %>)
+             <% } %>
+           </h3></li>
+        <% }) %>
+      </ul>
+    <% } %>
+
+<!--
 
     <% if (writer.band) { %>
       <h2>
@@ -41,19 +66,6 @@
       </ul>
     <% } %>
 
-    <% if (writer.songs) { %>
-      <h2>Songs</h2>
-      <ul>
-        <% writer.songs.forEach(function(s){ %>
-          <li>
-            <a href="/song/<%= s.id %>"><%= s.title %></a>
-             <% if (s.type) { %>
-               (<%= s.type %>)
-             <% } %>
-           </li>
-        <% }) %>
-      </ul>
-    <% } %>
 
     <% if (writer.relations) { %>
       <h2>More</h2>
@@ -64,7 +76,7 @@
       </ul>
     <% } %>
 
-
+-->
 
   </body>
 </html>

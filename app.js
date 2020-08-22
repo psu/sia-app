@@ -4,12 +4,6 @@ var favicon = require('serve-favicon')
 var logger = require('morgan')
 var cookieParser = require('cookie-parser')
 var bodyParser = require('body-parser')
-
-// "register" routes
-var routes = require('./routes/index')
-var search = require('./routes/search')
-var writer = require('./routes/writer')
-
 var app = express()
 
 // view engine setup
@@ -27,9 +21,10 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 ///////////// routes //////////////
 
-app.use('/', routes)
-app.use('/search', search)
-app.use('/writer', writer)
+app.use('/',       require('./routes/index') )
+app.use('/search', require('./routes/search') )
+app.use('/writer', require('./routes/writer') )
+app.use('/song',   require('./routes/song') )
 
 
 // catch 404 and forward to error handler
